@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mActivity = this;
-        mSimpleDateFormat = new SimpleDateFormat("MM/dd/yy h:mm a", Locale.getDefault());
+        mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.getDefault());
         mDate = (TextView) findViewById(R.id.contentMain);
         mDate.setOnClickListener(textListener);
     }
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             mCalendar.set(Calendar.YEAR, year);
             mCalendar.set(Calendar.MONTH, monthOfYear);
             mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            new TimePickerDialog(mActivity, mTimeDataSet, mCalendar.get(Calendar.HOUR), mCalendar.get(Calendar.MINUTE), false).show();
+            new TimePickerDialog(mActivity, mTimeDataSet, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), false).show();
         }
     };
 
