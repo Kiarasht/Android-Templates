@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * of any format.
      */
     private void onShareOnePhoto() {
-        Uri path = Uri.parse("file://" + ic_android_green);
+        Uri path = FileProvider.getUriForFile(this, "com.restart.sharingdata", new File(ic_android_green));
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
@@ -128,9 +129,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void onShareMultiplePhotos() {
         ArrayList<Uri> photos = new ArrayList<>();
-        photos.add(Uri.parse("file://" + ic_android_white));
-        photos.add(Uri.parse("file://" + ic_android_green));
-        photos.add(Uri.parse("file://" + ic_android_red));
+        photos.add(FileProvider.getUriForFile(this, "com.restart.sharingdata", new File(ic_android_white)));
+        photos.add(FileProvider.getUriForFile(this, "com.restart.sharingdata", new File(ic_android_green)));
+        photos.add(FileProvider.getUriForFile(this, "com.restart.sharingdata", new File(ic_android_red)));
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
