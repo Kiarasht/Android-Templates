@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void onShareText() {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "This is a text I'm sharing.");
         shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "This is a text I'm sharing.");
         startActivity(Intent.createChooser(shareIntent, "Share..."));
     }
 
