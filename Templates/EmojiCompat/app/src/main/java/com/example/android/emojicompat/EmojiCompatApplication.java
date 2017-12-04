@@ -24,7 +24,6 @@ import android.support.text.emoji.bundled.BundledEmojiCompatConfig;
 import android.support.v4.provider.FontRequest;
 import android.util.Log;
 
-
 /**
  * This application uses EmojiCompat.
  */
@@ -32,18 +31,22 @@ public class EmojiCompatApplication extends Application {
 
     private static final String TAG = "EmojiCompatApplication";
 
-    /** Change this to {@code false} when you want to use the downloadable Emoji font. */
-    private static final boolean USE_BUNDLED_EMOJI = true;
+    /**
+     * Change this to 0 to use existing emoji support, to 1 when you want to use previously downloaded Emoji font, or 2 to use regular widgets (don't initialize Emoji support).
+     */
+    public static final int USE_BUNDLED_EMOJI = 1;
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onCreate() {
         super.onCreate();
 
         final EmojiCompat.Config config;
-        if (USE_BUNDLED_EMOJI) {
+        if (USE_BUNDLED_EMOJI == 0) {
             // Use the bundled font for EmojiCompat
             config = new BundledEmojiCompatConfig(getApplicationContext());
-        } else {
+            EmojiCompat.init(config);
+        } else if (USE_BUNDLED_EMOJI == 1) {
             // Use a downloadable font for EmojiCompat
             final FontRequest fontRequest = new FontRequest(
                     "com.google.android.gms.fonts",
@@ -63,8 +66,8 @@ public class EmojiCompatApplication extends Application {
                             Log.e(TAG, "EmojiCompat initialization failed", throwable);
                         }
                     });
+            EmojiCompat.init(config);
         }
-        EmojiCompat.init(config);
     }
 
 }

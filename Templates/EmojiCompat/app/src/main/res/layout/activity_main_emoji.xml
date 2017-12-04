@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Copyright 2017 The Android Open Source Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +14,7 @@
  limitations under the License.
 -->
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
@@ -30,39 +28,39 @@
         android:orientation="vertical"
         android:padding="@dimen/spacing_normal">
 
-        <android.support.text.emoji.widget.EmojiAppCompatTextView
-            android:id="@+id/emoji_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_small"
-            android:textSize="@dimen/text_size"/>
-
-        <android.support.text.emoji.widget.EmojiAppCompatEditText
-            android:id="@+id/emoji_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_small"
-            android:textSize="@dimen/text_size"/>
-
-        <android.support.text.emoji.widget.EmojiAppCompatButton
-            android:id="@+id/emoji_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_small"
-            android:textSize="@dimen/text_size"/>
-
         <TextView
             android:id="@+id/regular_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_small"
-            android:textSize="@dimen/text_size"/>
+            android:layout_marginBottom="@dimen/spacing_normal"
+            android:textSize="@dimen/text_size" />
+
+        <android.support.text.emoji.widget.EmojiAppCompatTextView
+            android:id="@+id/emoji_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_normal"
+            android:textSize="@dimen/text_size" />
 
         <com.example.android.emojicompat.CustomTextView
             android:id="@+id/emoji_custom_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"/>
+            android:layout_marginBottom="@dimen/spacing_normal"
+            android:textSize="@dimen/text_size" />
+
+        <android.support.text.emoji.widget.EmojiAppCompatEditText
+            android:id="@+id/emoji_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_normal"
+            android:textSize="@dimen/text_size" />
+
+        <android.support.text.emoji.widget.EmojiAppCompatButton
+            android:id="@+id/emoji_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size" />
 
     </LinearLayout>
 

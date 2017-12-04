@@ -17,8 +17,9 @@
 <resources>
     <string name="app_name">EmojiCompat</string>
     <string name="emoji_text_view">Emoji TextView %s</string>
-    <string name="emoji_edit_text">Emoji EditText %s</string>
-    <string name="emoji_button">Emoji Button %s</string>
     <string name="regular_text_view">Regular TextView %s</string>
+    <string name="emoji_edit_text">Emoji EditText %s</string>
+    <string name="regular_edit_text">Regular EditText %s</string>
+    <string name="emoji_button">Emoji Button %s</string>
     <string name="custom_text_view">Custom TextView %s</string>
 </resources>
