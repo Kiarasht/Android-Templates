@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Usage of Autosizing TextViews without any usage of support libraries. Accessible on +26 API only. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linear_layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:text="Hello World!" />
+
+        <!-- The default dimensions for uniform scaling are minTextSize = 12sp, maxTextSize = 112sp, and granularity = 1px. -->
+        <TextView
+            android:id="@+id/default_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:autoSizeTextType="uniform" />
+
+        <!-- Here we override the values with of our own. -->
+        <TextView
+            android:id="@+id/granularity_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:autoSizeMaxTextSize="100sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform" />
+
+        <!-- Set of preset acceptable values -->
+        <TextView
+            android:id="@+id/preset_sizes_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:autoSizePresetSizes="@array/autosize_text_sizes"
+            android:autoSizeTextType="uniform" />
+
+    </LinearLayout>
+</ScrollView>
