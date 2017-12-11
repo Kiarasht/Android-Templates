@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements TextWatcher {
 
     private static final boolean INITIALIZE_THROUGH_XML = false;
+    private static final String EDIT_TEXT_VALUE = "edit_text_value";
     private EditText editText;
     private TextView defaultTextView;
     private TextView granularityTextView;
@@ -24,9 +25,8 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         super.onCreate(savedInstanceState);
         // There is two layouts, one for api 26 and above, other any API version but this projects minSdkVersion is 16.
         setContentView(R.layout.activity_main);
-
         final int COMPLEX_UNIT_SP = TypedValue.COMPLEX_UNIT_SP;
-        final int[] preset_integer_sizes = getResources().getIntArray(R.array.autosize_text_sizes);
+        final int[] preset_integer_sizes = new int[]{10, 12, 20, 40, 100};
 
         // Load the widgets from our XML only. The support library will load if phone is below API 26.
         if (INITIALIZE_THROUGH_XML) {
@@ -36,25 +36,23 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
             presetSizesTextView = findViewById(R.id.preset_sizes_text_view);
 
             // Load the widgets manually into our layouts. This is how you would initialize Autosizing TextViews
-            // programmatically
-            // when no using any support library
+            // programmatically when no using any support library
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            initializeWidgets(savedInstanceState);
+            replaceWidgetsInLayout();
             defaultTextView.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
             granularityTextView.setAutoSizeTextTypeUniformWithConfiguration(12, 100, 2, COMPLEX_UNIT_SP);
             presetSizesTextView.setAutoSizeTextTypeUniformWithPresetSizes(preset_integer_sizes, COMPLEX_UNIT_SP);
 
-            initializeWidgets();
-            replaceWidgetsInLayout();
-
             // Just like the if statement above, instead we are using the support library.
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            initializeWidgets(savedInstanceState);
+            replaceWidgetsInLayout();
             TextViewCompat.setAutoSizeTextTypeWithDefaults(defaultTextView, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
             TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(granularityTextView, 12, 100, 2,
                     COMPLEX_UNIT_SP);
             TextViewCompat.setAutoSizeTextTypeUniformWithPresetSizes(presetSizesTextView, preset_integer_sizes,
                     COMPLEX_UNIT_SP);
-            initializeWidgets();
-            replaceWidgetsInLayout();
         }
 
         // Set up a listener for any text changes, and call the method to start it off with what is already in the
@@ -63,7 +61,13 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         afterTextChanged(null);
     }
 
-    private void initializeWidgets() {
+    /**
+     * Initialize widgets if we decided not to create them through XML. It will be the same for support and non-support
+     * libraries and only setting the autosizing properties will need their own unique process.
+     */
+    private void initializeWidgets(Bundle savedInstanceState) {
+        // It is not recommended to use the value "wrap_content" for the layout_width or layout_height attributes of
+        // a TextView. It may produce unexpected results.
         final int twoHundredDensityPixel = (int) getResources().getDimension(R.dimen.height);
         final LinearLayout.LayoutParams editTextParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
                 .MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -72,6 +76,11 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
         editText = new EditText(this);
         editText.setLayoutParams(editTextParams);
+
+        if (savedInstanceState != null && savedInstanceState.getString(EDIT_TEXT_VALUE) != null)
+            editText.setText(savedInstanceState.getString(EDIT_TEXT_VALUE));
+        else
+            editText.setText(getString(R.string.hello_world));
 
         defaultTextView = new TextView(this);
         defaultTextView.setLayoutParams(textViewParams);
@@ -112,5 +121,13 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         defaultTextView.setText(editText.getText().toString());
         granularityTextView.setText(editText.getText().toString());
         presetSizesTextView.setText(editText.getText().toString());
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(EDIT_TEXT_VALUE, editText.getText().toString());
+
+        // call superclass to save any view hierarchy
+        super.onSaveInstanceState(outState);
     }
 }

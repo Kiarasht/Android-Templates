@@ -2,9 +2,9 @@
 
 <!-- Usage of Autosizing TextViews with the usage of support libraries. Accessible on +14 API. -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linear_layout_container"
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:text="Hello World!" />
+            android:text="@string/hello_world" />
 
         <!-- The default dimensions for uniform scaling are minTextSize = 12sp, maxTextSize = 112sp, and granularity = 1px. -->
         <android.support.v7.widget.AppCompatTextView
