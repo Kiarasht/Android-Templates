@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
@@ -11,10 +12,26 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * Android doc
+ * https://developer.android.com/guide/topics/ui/look-and-feel/autosizing-textview.html
+ */
 public class MainActivity extends AppCompatActivity implements TextWatcher {
 
+    /**
+     * Set to true if should use widgets from XML rather than programmatically
+     */
     private static final boolean INITIALIZE_THROUGH_XML = false;
+
+    /**
+     * Only used for rotation purposes. After rotation we get the value of EditText and apply it to TextViews.
+     */
     private static final String EDIT_TEXT_VALUE = "edit_text_value";
+
+    /**
+     * EditText to enter our text, and three TextViews to see the differences between the three different approaches to
+     * AutoSizing TextViews. Default, Granularity, and Preset Sizes
+     */
     private EditText editText;
     private TextView defaultTextView;
     private TextView granularityTextView;
@@ -23,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // There is two layouts, one for api 26 and above, other any API version but this projects minSdkVersion is 16.
+        // There is two layouts, one is for api 26 and above, other for any other API versions.
         setContentView(R.layout.activity_main);
         final int COMPLEX_UNIT_SP = TypedValue.COMPLEX_UNIT_SP;
         final int[] preset_integer_sizes = new int[]{10, 12, 20, 40, 100};
@@ -35,10 +52,10 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
             granularityTextView = findViewById(R.id.granularity_text_view);
             presetSizesTextView = findViewById(R.id.preset_sizes_text_view);
 
-            // Load the widgets manually into our layouts. This is how you would initialize Autosizing TextViews
-            // programmatically when no using any support library
+        /* Load the widgets manually into our layouts. This is how you would initialize Autosizing TextViews
+        programmatically when not using any support library */
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            initializeWidgets(savedInstanceState);
+            initializeWidgets(savedInstanceState, false);
             replaceWidgetsInLayout();
             defaultTextView.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
             granularityTextView.setAutoSizeTextTypeUniformWithConfiguration(12, 100, 2, COMPLEX_UNIT_SP);
@@ -46,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
             // Just like the if statement above, instead we are using the support library.
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            initializeWidgets(savedInstanceState);
+            initializeWidgets(savedInstanceState, true);
             replaceWidgetsInLayout();
             TextViewCompat.setAutoSizeTextTypeWithDefaults(defaultTextView, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
             TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(granularityTextView, 12, 100, 2,
@@ -55,19 +72,20 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
                     COMPLEX_UNIT_SP);
         }
 
-        // Set up a listener for any text changes, and call the method to start it off with what is already in the
-        // EditText
+        /* Set up a listener for any text changes, and call the method to start it off with what is already in the
+        EditText */
         editText.addTextChangedListener(this);
         afterTextChanged(null);
     }
 
     /**
-     * Initialize widgets if we decided not to create them through XML. It will be the same for support and non-support
-     * libraries and only setting the autosizing properties will need their own unique process.
+     * Initialize widgets if we decided not to create them through XML. It will be mostly the same for support and
+     * non-support libraries only that one needs regular TextView, other needs AppCompatTextView. You can simply use
+     * AppCompatTextView for both cases to simplify since AppCompatTextView extends TextView.
      */
-    private void initializeWidgets(Bundle savedInstanceState) {
-        // It is not recommended to use the value "wrap_content" for the layout_width or layout_height attributes of
-        // a TextView. It may produce unexpected results.
+    private void initializeWidgets(Bundle savedInstanceState, boolean isSupportLibrary) {
+        /* It is not recommended to use the value "wrap_content" for the layout_width or layout_height attributes of
+        a TextView. It may produce unexpected results. */
         final int twoHundredDensityPixel = (int) getResources().getDimension(R.dimen.height);
         final LinearLayout.LayoutParams editTextParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
                 .MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -75,20 +93,24 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
                 .MATCH_PARENT, twoHundredDensityPixel);
 
         editText = new EditText(this);
-        editText.setLayoutParams(editTextParams);
-
         if (savedInstanceState != null && savedInstanceState.getString(EDIT_TEXT_VALUE) != null)
             editText.setText(savedInstanceState.getString(EDIT_TEXT_VALUE));
         else
             editText.setText(getString(R.string.hello_world));
 
-        defaultTextView = new TextView(this);
+        if (isSupportLibrary) {
+            defaultTextView = new AppCompatTextView(this);
+            granularityTextView = new AppCompatTextView(this);
+            presetSizesTextView = new AppCompatTextView(this);
+        } else {
+            defaultTextView = new TextView(this);
+            granularityTextView = new TextView(this);
+            presetSizesTextView = new TextView(this);
+        }
+
+        editText.setLayoutParams(editTextParams);
         defaultTextView.setLayoutParams(textViewParams);
-
-        granularityTextView = new TextView(this);
         granularityTextView.setLayoutParams(textViewParams);
-
-        presetSizesTextView = new TextView(this);
         presetSizesTextView.setLayoutParams(textViewParams);
     }
 
