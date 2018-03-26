@@ -1,62 +1,73 @@
 package com.restart.notification;
 
-import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static int NOTIFICATION_ID = 1234;
-    private Activity mActivity;
+    private static final int NOTIFICATION_ID = 1234;
+    private NotificationManager mNotificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mActivity = this;
 
-        Button simpleNotification = (Button) findViewById(R.id.simple_notification);
-        simpleNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                String CHANNEL_ID = "my_channel_01";
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mActivity)
-                        .setSmallIcon(R.drawable.ic_action_android)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!")
-                        .setChannelId(CHANNEL_ID)
-                        .setSound(soundUri);
+        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.createNotificationChannelGroup(new NotificationChannelGroup("group_id", "group name"));
 
-                // Creates an explicit intent for an Activity in your app
-                Intent resultIntent = new Intent(mActivity, MainActivity.class);
+        NotificationChannel smsNotificationChannel = new NotificationChannel(getString(R.string.sms_channel_id),
+                getString(R.string.sms_channel_name), NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationChannel pictureNotificationChannel = new NotificationChannel(getString(R.string.picture_channel_id),
+                getString(R.string.picture_channel_name), NotificationManager.IMPORTANCE_DEFAULT);
+        smsNotificationChannel.setGroup("group_id");
+        pictureNotificationChannel.setGroup("group_id");
 
-                // The stack builder object will contain an artificial back stack for the
-                // started Activity.
-                // This ensures that navigating backward from the Activity leads out of
-                // your application to the Home screen.
-                TaskStackBuilder stackBuilder = TaskStackBuilder.create(mActivity);
-                // Adds the back stack for the Intent (but not the Intent itself)
-                stackBuilder.addParentStack(MainActivity.class);
-                // Adds the Intent that starts the Activity to the top of the stack
-                stackBuilder.addNextIntent(resultIntent);
-                PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setContentIntent(resultPendingIntent);
-                NotificationManager mNotificationManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                // mId allows you to update the notification later on.
-                mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-            }
-        });
+        mNotificationManager.createNotificationChannel(smsNotificationChannel);
+        mNotificationManager.createNotificationChannel(pictureNotificationChannel);
+
+        findViewById(R.id.send_sms_notification).setOnClickListener(this);
+        findViewById(R.id.send_picture_notification).setOnClickListener(this);
+    }
+
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MainActivity.this)
+                .setSmallIcon(R.drawable.ic_action_android);
+
+        switch (v.getId()) {
+            case R.id.send_sms_notification:
+                mBuilder.setContentTitle(getString(R.string.sms_notification_title))
+                        .setContentText(getString(R.string.sms_notification_content))
+                        .setChannelId(getString(R.string.sms_channel_id));
+                break;
+            case R.id.send_picture_notification:
+                mBuilder.setContentTitle(getString(R.string.picture_notification_title))
+                        .setContentText(getString(R.string.picture_notification_content))
+                        .setChannelId(getString(R.string.sms_channel_id));
+                break;
+        }
+
+        Intent resultIntent = new Intent(MainActivity.this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(MainActivity.this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }

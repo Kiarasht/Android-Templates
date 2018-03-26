@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Notification</string>
+
+    <string name="send_sms_notification">Send SMS Notification</string>
+    <string name="send_picture_notification">Send picture Notification</string>
+    <string name="sms_notification_title">SMS Notification</string>
+    <string name="sms_notification_content">We just sent a SMS notification. Yay!</string>
+    <string name="picture_notification_title">Picture Notification</string>
+    <string name="picture_notification_content">We just sent a picture notification. Yay!</string>
+
+    <!-- SMS Channel -->
+    <string name="sms_channel_name">SMS</string>
+    <string name="sms_channel_description">Receiving SMS messages</string>
+
+    <!-- Picture Channel -->
+    <string name="picture_channel_name">SMS</string>
+    <string name="picture_channel_description">Receiving SMS messages</string>
+
+
 </resources>

@@ -19,7 +19,7 @@
             android:inputType="text"
             android:text="Hello World!" />
 
-        <!-- The default dimensions for uniform scaling are minTextSize = 12sp, maxTextSize = 112sp, and granularity = 1px. -->
+        <!-- The default dimensions for uniform scaling are minTextSize = 12sp, maxTextSize = 112sp, and granularity = 1sp. -->
         <TextView
             android:id="@+id/default_text_view"
             android:layout_width="match_parent"
