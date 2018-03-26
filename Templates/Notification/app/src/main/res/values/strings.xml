@@ -1,20 +1,29 @@
 <resources>
     <string name="app_name">Notification</string>
 
+    <!-- These are the strings for the button on the main page -->
     <string name="send_sms_notification">Send SMS Notification</string>
     <string name="send_picture_notification">Send picture Notification</string>
+    <string name="send_promotion_notification">Send promotion Notification</string>
+
+    <!-- These are the titles and descriptions for each type of notification -->
     <string name="sms_notification_title">SMS Notification</string>
     <string name="sms_notification_content">We just sent a SMS notification. Yay!</string>
+
     <string name="picture_notification_title">Picture Notification</string>
     <string name="picture_notification_content">We just sent a picture notification. Yay!</string>
 
-    <!-- SMS Channel -->
-    <string name="sms_channel_name">SMS</string>
-    <string name="sms_channel_description">Receiving SMS messages</string>
+    <string name="promotion_notification_title">Promotion Notification</string>
+    <string name="promotion_notification_content">We just sent a promotion notification. Yay!</string>
 
-    <!-- Picture Channel -->
-    <string name="picture_channel_name">SMS</string>
-    <string name="picture_channel_description">Receiving SMS messages</string>
-
-
+    <!-- Groups, where they can contain one or more channels. ex: SMS contains channels text and
+     pictures, while promotions only contains weekly ads channel. -->
+    <string name="SMS">SMS</string>
+    <string name="Promotions">Promotions</string>
+    <!-- Text Channel under SMS -->
+    <string name="sms_channel_name">Text</string>
+    <!-- Picture Channel under SMS -->
+    <string name="picture_channel_name">Picture</string>
+    <!-- Ads Channel under Promotions -->
+    <string name="ads_channel_name">Weekly ads</string>
 </resources>
