@@ -1,21 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/activity_main"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        tools:showIn="@layout/activity_main">
 
     <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="24dp"
+            android:text="This is always white!"
+            android:textColor="#fff"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="This is a text that will default to white or grey!"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            tools:ignore="HardcodedText" />
+
+    <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="This is a text that will be green or red!"
+            android:textColor="@color/green_or_red"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView2"
+            tools:ignore="HardcodedText" />
+
+    <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:text="This is a button!"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:ignore="HardcodedText" />
+
+    <Button
+            android:id="@+id/button_borderless"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:text="This is a borderless button!"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button"
+            tools:ignore="HardcodedText" />
+
+    <ImageView
+            android:id="@+id/imageView"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_thumb_down"
+            android:tint="#fff"
+            app:layout_constraintEnd_toStartOf="@+id/imageView_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_borderless" />
+
+    <ImageView
+            android:id="@+id/imageView_2"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_insert_emoticon"
+            android:tint="?attr/colorControlNormal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_borderless" />
+
+    <ImageView
+            android:id="@+id/imageView_3"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_settings"
+            android:tint="@color/green_or_red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView_2"
+            app:layout_constraintTop_toBottomOf="@+id/button_borderless" />
+
+    <RadioGroup
+            android:id="@+id/dark_mode_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+                android:id="@+id/always_light_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Always Light" />
+
+        <RadioButton
+                android:id="@+id/always_dark_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Always Dark" />
+
+        <RadioButton
+                android:id="@+id/follow_system_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Follow System" />
+    </RadioGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>
