@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.restart.receive">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup">
+
+        <activity android:name="com.restart.receive.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.restart.receive.A"
+            android:label="@string/title_activity_a"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter android:label="A">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="test"
+                    android:pathPattern="/a"
+                    android:scheme="example" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.restart.receive.B"
+            android:label="@string/title_activity_b"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter android:label="B">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="test"
+                    android:pathPattern="/b"
+                    android:scheme="example" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.restart.receive.C"
+            android:label="@string/title_activity_c"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter android:label="C">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="test"
+                    android:pathPattern="/c"
+                    android:scheme="example" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
