@@ -1,0 +1,2 @@
+rootProject.name='Blur'
+include ':app'
