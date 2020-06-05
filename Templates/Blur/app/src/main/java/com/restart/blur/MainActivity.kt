@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val start = System.currentTimeMillis()
 
-            blur_image_view.setImageBitmap(Blur.blur(R.id.activity_parent_layout, this, 4))
+            blur_image_view.setImageBitmap(Blur.blur(R.id.activity_parent_layout, this, 4, 25f))
 
             Log.i("Duration", ((System.currentTimeMillis() - start)).toString() + " ms")
 
