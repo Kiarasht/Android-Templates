@@ -19,11 +19,11 @@ object Blur {
      * @param activity Used to create an incoming bitmap alongside [containerId]
      * @param scaleDownFactor The incoming bitmap will be scaled down a factor before being blurred.
      */
-    fun blur(@IdRes containerId: Int, activity: Activity, scaleDownFactor: Int = 4): Bitmap {
+    fun blur(@IdRes containerId: Int, activity: Activity, scaleDownFactor: Int = 4, radius: Float = 25f): Bitmap {
         // Create a bitmap from the given view layout
         val originalInputBitmap = activity.findViewById<View>(containerId).convertToBitmap()
 
-        // Scale down the bitmap by a factor of 8
+        // Scale down the bitmap by a factor of scaleDownFactor
         val resizedInBitmap = Bitmap.createScaledBitmap(originalInputBitmap, originalInputBitmap.width / scaleDownFactor, originalInputBitmap.height / scaleDownFactor, true)
 
         // Create an empty bitmap with the same size of the scaled down bitmap we want to blur
@@ -38,7 +38,7 @@ object Blur {
         val allOut = Allocation.createFromBitmap(rs, outBitmap)
 
         // Set the radius of the blur
-        blurScript.setRadius(25f)
+        blurScript.setRadius(radius)
 
         // Perform the Renderscript
         blurScript.setInput(allIn)

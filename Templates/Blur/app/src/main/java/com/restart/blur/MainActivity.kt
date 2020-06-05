@@ -1,6 +1,7 @@
 package com.restart.blur
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
@@ -15,9 +16,25 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener {
-            blur_image_view.setImageBitmap(Blur.blur(R.id.activity_parent_layout, this))
+            val start = System.currentTimeMillis()
+
+            blur_image_view.setImageBitmap(Blur.blur(R.id.activity_parent_layout, this, 16))
+
+            Log.i("Duration", ((System.currentTimeMillis() - start)).toString() + " ms")
+
             imageView.visibility = View.GONE
             imageView2.visibility = View.GONE
+            textView.visibility = View.GONE
+        }
+
+        imageView2.setOnClickListener {
+            val start = System.currentTimeMillis()
+
+            imageView2.setImageBitmap(Blur.blur(R.id.imageView2, this, 2))
+
+            Log.i("Duration", ((System.currentTimeMillis() - start)).toString() + " ms")
+
+            imageView.visibility = View.GONE
             textView.visibility = View.GONE
         }
     }
